@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.fshou.kampusku.data.StudentRepository
 import com.fshou.kampusku.ui.add.AddStudentViewModel
 import com.fshou.kampusku.ui.detail.DetailViewModel
+import com.fshou.kampusku.ui.edit.EditViewModel
 import com.fshou.kampusku.ui.main.MainViewModel
 
 class ViewModelFactory private constructor(private val studentRepository: StudentRepository): ViewModelProvider.Factory{
@@ -33,6 +34,8 @@ class ViewModelFactory private constructor(private val studentRepository: Studen
             }
             modelClass.isAssignableFrom(AddStudentViewModel::class.java) -> {
                 AddStudentViewModel(studentRepository) as T
+            } modelClass.isAssignableFrom(EditViewModel::class.java) -> {
+                EditViewModel(studentRepository) as T
             }
             else -> throw Throwable("Unknown ViewModel class: " + modelClass.name)
         }

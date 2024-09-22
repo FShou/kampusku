@@ -13,18 +13,12 @@ class MainViewModel(private val studentRepository: StudentRepository) : ViewMode
     private val _listStudent = MutableStateFlow<StudentsUiState>(StudentsUiState.Idle())
     val listStudent: StateFlow<StudentsUiState> = _listStudent
 
-
-    init {
-        loadAllStudent()
-    }
-
     fun loadAllStudent() {
         CoroutineScope(Dispatchers.IO).launch {
             studentRepository.getAllStudent()
                 .collect { students ->
                     _listStudent.value = StudentsUiState.Success(students)
                 }
-
         }
     }
 }

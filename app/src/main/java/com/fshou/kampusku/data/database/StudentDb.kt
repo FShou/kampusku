@@ -1,6 +1,7 @@
 package com.fshou.kampusku.data.database
 
 import android.content.Context
+import androidx.lifecycle.ViewModelProvider.NewInstanceFactory.Companion.instance
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -8,7 +9,10 @@ import androidx.room.RoomDatabase.Callback
 import androidx.sqlite.db.SupportSQLiteDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 @Database(
@@ -32,15 +36,18 @@ abstract class StudentDb : RoomDatabase() {
                     "task.db"
                 )
                     .fallbackToDestructiveMigration()
-                    .addCallback(object : RoomDatabase.Callback() {
+                    .addCallback(object : Callback() {
                         override fun onCreate(db: SupportSQLiteDatabase) {
                             super.onCreate(db)
                             INSTANCE?.let { studentDb ->
                                 CoroutineScope(Dispatchers.IO).launch {
-                                    fakeStudents.forEach {
-                                        studentDb.studentDao().insertStudent(it)
+                                    for (student in fakeStudents){
+                                        studentDb.studentDao().insertStudent(
+                                            student
+                                        )
                                     }
                                 }
+
                             }
                         }
                     })
@@ -52,7 +59,7 @@ abstract class StudentDb : RoomDatabase() {
     }
 }
 
-private val fakeStudents = List(10) {
+private val fakeStudents = List(1000) {
     Student(
         no = it,
         name = "Students Name $it",

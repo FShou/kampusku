@@ -5,14 +5,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.lifecycleScope
 import com.fshou.kampusku.R
 import com.fshou.kampusku.data.database.Student
 import com.fshou.kampusku.databinding.ActivityAddStudentBinding
 import com.fshou.kampusku.ui.ViewModelFactory
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class AddStudentActivity : AppCompatActivity() {
 
@@ -40,12 +36,11 @@ class AddStudentActivity : AppCompatActivity() {
             }
             val student = Student(
                 name = binding.edName.text.toString(),
-                gender = (binding.edGender.text.toString() == "Laki-Laki"),
+                gender = (binding.edGender.text.toString() == "Laki-laki"),
                 address = binding.edAddress.text.toString()
             )
-            lifecycleScope.launch {
-                viewModel.addNewStudent(student)
-            }
+
+            viewModel.addNewStudent(student)
             finish()
         }
 

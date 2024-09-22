@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="gender">
-        <item>"Laki-Laki"</item>
+        <item>"Laki-laki"</item>
         <item>"Perempuan"</item>
     </array>
 </resources>

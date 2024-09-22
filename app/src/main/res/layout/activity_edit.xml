@@ -5,15 +5,27 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ui.add.AddStudentActivity">
+    tools:context=".ui.edit.EditActivity">
+
+
+    <ImageView
+        android:id="@+id/img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:src="@drawable/dashboard_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:orientation="vertical"
-        app:layout_constraintTop_toTopOf="parent"
-        >
+        app:layout_constraintTop_toBottomOf="@id/img">
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/name_layout"
             style="?attr/textInputOutlinedStyle"
@@ -23,12 +35,12 @@
             android:layout_marginTop="24dp"
             android:hint="Name"
             app:layout_constraintTop_toBottomOf="@id/tv_login">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ed_name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:inputType="text"
-                />
+                android:inputType="text" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -47,8 +59,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="text"
-                app:simpleItems="@array/gender"
-                />
+                app:simpleItems="@array/gender" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -76,14 +87,13 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/btn_add"
+        android:id="@+id/btn_save"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add New Student"
+        android:text="Save"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="32dp"
         android:layout_marginHorizontal="16dp"
         />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
