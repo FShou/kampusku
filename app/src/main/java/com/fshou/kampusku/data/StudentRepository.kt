@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.flow
 class StudentRepository(
     private val studentDao: StudentDao
 ) {
+
     companion object {
         @Volatile
         private var instance: StudentRepository? = null
@@ -40,6 +41,7 @@ class StudentRepository(
     suspend fun updateStudent(student: Student) {
         studentDao.updateStudent(student)
     }
+
     suspend fun deleteStudent(student: Student) {
         studentDao.deleteStudent(student)
     }

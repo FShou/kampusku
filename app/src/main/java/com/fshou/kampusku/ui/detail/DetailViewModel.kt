@@ -1,6 +1,5 @@
 package com.fshou.kampusku.ui.detail
 
-import android.os.Build.VERSION_CODES.M
 import androidx.lifecycle.ViewModel
 import com.fshou.kampusku.data.StudentRepository
 import com.fshou.kampusku.data.database.Student
@@ -10,7 +9,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class DetailViewModel(private val studentRepository: StudentRepository): ViewModel() {
     private var _student: MutableStateFlow<DetailStudentUiState> = MutableStateFlow(DetailStudentUiState.Idle())

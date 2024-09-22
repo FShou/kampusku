@@ -10,6 +10,7 @@ import androidx.room.Update
 
 @Dao
 interface StudentDao {
+
     @Query("SELECT * FROM student")
     fun getStudents(): List<Student>
 
