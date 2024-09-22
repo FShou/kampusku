@@ -1,6 +1,7 @@
 package com.fshou.kampusku.ui.main
 
 import android.content.Intent
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -50,8 +51,21 @@ class MainActivity : AppCompatActivity() {
                 )
             )
         }
-        viewModel.loadAllStudent()
+        lifecycleScope.launch {
+            delay(1000L)
+            viewModel.listStudent.collect {
+                when(it){
+                    is StudentsUiState.Error -> {
 
+                    }
+                    is StudentsUiState.Idle -> {
+
+                    }
+                    is StudentsUiState.Success -> showStudentList(it.students)
+                    is StudentsUiState.Loading ->  { println("loading") }
+                }
+            }
+        }
     }
 
     private fun showStudentList(students: List<Student>) {
@@ -73,18 +87,5 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         viewModel.loadAllStudent()
-        lifecycleScope.launch {
-            viewModel.listStudent.collect {
-                when(it){
-                    is StudentsUiState.Error -> {
-
-                    }
-                    is StudentsUiState.Idle -> {
-
-                    }
-                    is StudentsUiState.Success -> showStudentList(it.students)
-                }
-            }
-        }
     }
 }

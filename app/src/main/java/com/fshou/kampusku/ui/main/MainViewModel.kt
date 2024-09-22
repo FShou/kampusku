@@ -7,6 +7,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 
 class MainViewModel(private val studentRepository: StudentRepository) : ViewModel() {
@@ -14,10 +15,13 @@ class MainViewModel(private val studentRepository: StudentRepository) : ViewMode
     val listStudent: StateFlow<StudentsUiState> = _listStudent
 
     fun loadAllStudent() {
+        _listStudent.value = StudentsUiState.Loading()
         CoroutineScope(Dispatchers.IO).launch {
             studentRepository.getAllStudent()
+                .catch { println("Apakah Error ini bjir") }
                 .collect { students ->
                     _listStudent.value = StudentsUiState.Success(students)
+                    println(students)
                 }
         }
     }
@@ -26,5 +30,6 @@ class MainViewModel(private val studentRepository: StudentRepository) : ViewMode
 sealed class StudentsUiState {
     data class Success(val students: List<Student>) : StudentsUiState()
     class Idle : StudentsUiState()
+    class Loading : StudentsUiState()
     data class Error(val msg: String) : StudentsUiState()
 }

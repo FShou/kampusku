@@ -59,7 +59,7 @@ abstract class StudentDb : RoomDatabase() {
     }
 }
 
-private val fakeStudents = List(1000) {
+private val fakeStudents = List(5) {
     Student(
         no = it,
         name = "Students Name $it",
